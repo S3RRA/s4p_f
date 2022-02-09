@@ -1,0 +1,64 @@
+<h3>{{ id }}</h3>
+
+<div class="row">
+
+    <div class="col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+            <div class="card-body">
+
+                <h5>Description</h5>
+                <p> {{ purpose.description[0].value }} </p>
+                <br><hr><br>
+
+                <h5>PI-Scopes:</h5>
+
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col"><b>ID</b></th>
+                        <th scope="col"><b>Title</b></th>
+                        <th scope="col"><b>Description</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let scope of purpose.pi_scopes; let i = index;">
+                            <th scope="row">{{ i+1 }}</th>
+                            <td>{{ scope.id }}</td>
+                            <td>{{ scope.title[0].value }}</td>
+                            <td>{{ scope.description[0].value }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+
+                <b>Title:</b>
+                    <div class="float-right">
+                        {{ purpose.title[0].value }}
+                    </div>
+                <br><br>
+                <b>ID: </b>
+                    <div class="float-right">
+                        {{ purpose.id }}
+                    </div>
+                <br><br>
+                <b>Type:</b>
+                    <div class="float-right">
+                        {{ purpose.purpose_type }}
+                    </div>
+                <br><br>
+                <b>Level:</b>
+                    <div class="float-right">
+                        {{ purpose.level }}
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>  

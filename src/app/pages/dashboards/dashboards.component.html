@@ -1,0 +1,64 @@
+<!--<app-dashboardheader
+    [apps]="data.apps.length"
+    [apis]="data.apis.length"
+    [scopes]="data.scopes.length"
+    [purposes]="data.purposes.length"
+    [env]="env"
+></app-dashboardheader>-->
+
+<div class="row">
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                
+                <div class="d-flex">
+                    <div>
+                        <h3 class="card-title m-b-5"><span class="lstick"></span>Overview</h3>
+                    </div>
+                    <div class="ml-auto">
+                        <select class="custom-select b-0">
+                            <option selected="">All</option>
+                            <option value="0">Apps</option>
+                            <option value="1">Apis</option>
+                            <option value="2">Purposes</option>
+                            <option value="3">PiScopes</option>
+                            <option value="3">Datasets</option>
+                        </select>
+                    </div>
+                </div>
+                <!--
+                <app-chart
+                    [type]="'pie'"
+                    [title]="'Preproduction'"
+                    [data]="chartData"
+                ></app-chart> 
+                -->   
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div>
+                        <h3 class="card-title m-b-5"><span class="lstick"></span>LOGS</h3>
+                    </div>
+                    <div class="ml-auto">
+                        <select class="custom-select b-0">
+                            <option selected="">Today</option>
+                            <option value="0">Last week</option>
+                            <option value="1">Last month</option>
+                            <option value="2">Last trimester</option>
+                            <option value="3">Last year</option>
+                        </select>
+                    </div>
+                </div> 
+
+                We are working on it, stay tunned.
+                
+            </div>
+        </div>
+    </div>
+</div>
+               

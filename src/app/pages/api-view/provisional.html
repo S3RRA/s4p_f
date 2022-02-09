@@ -1,0 +1,314 @@
+<!-- Breadcrumbs -->
+<app-breadcrumbs [places]="where"></app-breadcrumbs>
+
+<h3>{{ id }}</h3>
+
+<div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <!--================ PISCOPES ==============-->
+                <div class="d-flex justify-content-between">
+                    <h5><b>Pi scopes:</b></h5>
+                        <a (click)="displaySco()" data-toggle="collapse" href="#piscopes" role="button" aria-expanded="false" aria-controls="piscopes"><i class="{{ iconScopes }}"></i></a>
+                </div>
+                <hr>
+                <div  class="collapse" id="piscopes">
+                    <br>
+                    <table class="table table-striped" style="border-colapse:'separate';border-spacing:">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col"><b>Id</b></th>
+                                <th scope="col"><b>name</b></th>
+                                <th scope="col"><b>guards_personal_information</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let scope of api['scopes']; let i = index">
+                                <th scope="row"></th>
+                                <td *ngIf="scope['guards_personal_information'] === true"><a routerLink="/Smart4P/{{ env }}/pi-scopes/{{ scope['id'] }}" ><b>{{ scope['id'] }}</b></a></td>
+                                <td><b>{{ scope['name'] }}</b></td>
+                                <td>                                
+                                    <b><i *ngIf="scope['guards_personal_information'] === true" class="mdi mdi-checkbox-marked-outline"></i>
+                                    <i *ngIf="scope['guards_personal_information'] === false" class="mdi mdi-close-box-outline"></i></b>                                
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--================ SECURITY DEFINITIONS ==============-->
+                <br>
+                <div class="d-flex justify-content-between">
+                    <h5><b>Security Definitions:</b></h5>
+                        <a (click)="displaySec()" data-toggle="collapse" href="#security" role="button" aria-expanded="false" aria-controls="security"><i  class="{{ iconSec }}"></i></a>
+                </div>
+                <hr>
+                <div class="collapse" id="security">
+                    <br>                
+                    <div class="card" *ngFor="let e of secdef | keyvalue">
+                        <div class="card-header border">
+                            <b>{{ e.key }}</b>
+                        </div>
+                        <div class="card-body border">
+
+                            <div *ngFor="let element of secdef[e.key] | keyvalue">
+                                <div *ngIf="element.key !== 'scopes'">
+                                    <b>{{ element.key }}:</b>
+                                        <div class="float-right">{{ element.value }}</div><br>
+                                </div>
+
+                                <div *ngIf="element.key === 'scopes'" class="border">
+                                        <b>{{ element.key }}:</b>
+                                            <a (click)="displaySc()" class="float-right" data-toggle="collapse" href="#scope" role="button" aria-expanded="false" aria-controls="scope">
+                                                <i  class="{{ iconSc }}"></i>
+                                            </a>
+                                        <div class="collapse" id="scopes" *ngFor="let scope of secdef[e.key]['scopes']">
+                                            <div class="float-left">{{ scope }}</div>
+                                            <div class="float-right"></div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--================ PATHS ==============-->               
+                <br>
+                <div class="d-flex justify-content-between">
+                    <h5><b>Paths:</b></h5>
+                        <a (click)="displayPaths()" data-toggle="collapse" href="#paths" role="button" aria-expanded="false" aria-controls="paths"><i  class="{{ iconPaths }}"></i></a>
+                </div>
+                <hr>
+                <div class="collapse" id="paths">
+                    <b>Host:</b> <div class="float-right"> {{ api['swagger']['host'] }} </div>
+                    <br>
+                    <br>
+                    <!--================ PATHS ==============-->
+                    <div class="card" *ngFor="let e of api['swagger']['paths'] | keyvalue; let i = index;">
+                        <div class="card-header border">
+                            <b>{{ e.key }}</b>
+                                <a (click)="displayPath(i)" class="float-right"  data-toggle="collapse" href="{{ '#' + i }}" role="button" aria-expanded="false" [attr.aria-controls]="i">
+                                    <i  class="{{ iconPath[i] }}"></i>
+                                </a>
+                        </div>  
+                        <!--================ METHODS ==============-->
+                        <div [attr.id]="i" class="card-body border collapse">
+
+                                <div *ngFor="let element of api['swagger']['paths'][e.key] | keyvalue; let j = index;">
+                                    <a >
+                                        <span class="badge" (click)="displayMethod(j)" [ngClass]="{
+                                            'badge-primary m-2' : element.key === 'get',
+                                            'badge-danger m-2' : element.key === 'delete',
+                                            'badge-warning m-2' : element.key === 'put',
+                                            'badge-success m-2' : element.key === 'post',
+                                            'badge-secondary m-2' : element.key === 'patch'
+                                        }">
+                                            {{ element.key | uppercase }}
+                                        </span>
+                                    </a>
+                                    <a (click)="displayMethod(j)" class="float-right"  data-toggle="collapse" href="{{ '#route' + i + j }}" role="button" aria-expanded="false" [attr.aria-controls]="'route' + i + j">
+                                        <i  class="{{ iconUrl[j] }}"></i>
+                                    </a>
+                                <hr>   
+                                <!--============= METHOD DATA =================-->            
+                                <div class="collapse" [attr.id]="'route' + i + j">
+                                    <ng-container *ngIf="element.value['description']">
+                                        <b>Description:</b> {{ element.value['description'] }}
+                                        <br>
+                                        <br>
+                                    </ng-container>
+                                    <ng-container *ngIf="element.value['tags'].length > 0">
+                                        <b>Tags:</b>
+                                            <div class="float-right" *ngFor="let tag of element.value['tags']">
+                                                <i class="mdi mdi-tag"></i>{{ tag }}
+                                            </div>
+                                        <br>
+                                        <br>
+                                    </ng-container>
+                                    <ng-container *ngIf="element.value['operationId']">
+                                        <b>Operation Id:</b>
+                                            <div class="float-right">
+                                                {{ element.value['operationId'] }}
+                                            </div>
+                                        <br>
+                                        <br>
+                                    </ng-container>
+                                    <ng-container *ngIf="element.value['summary']">
+                                        <b>Summary:</b>
+                                            <div class="float-right">
+                                                {{ element.value['summary'] }}
+                                            </div>
+                                        <br>
+                                        <br>
+                                    </ng-container>
+                                    <ng-container *ngIf="element.value['security'].length > 0">
+                                        <b>Security:</b><br>
+                                            <ng-container *ngFor="let s of element.value['security']">
+                                                <ng-container *ngFor="let sec of s | keyvalue">
+                                                    <b>{{ sec.key }}:</b> <div class="float-right">{{sec.value}}</div>
+                                                </ng-container>
+                                            </ng-container>
+                                        <br>
+                                        <br>
+                                    </ng-container>
+                                    <ng-container *ngIf="element.value['parameters']">
+                                        <b>Parameters:</b>
+                                            <a class="float-right" (click)="displayParameters(j)" class="float-right"  data-toggle="collapse" href="{{ '#parameters' + i + j }}" role="button" aria-expanded="false" [attr.aria-controls]="'parameters' + i + j">
+                                                <i class="{{ iconParameters[j] }}"></i>
+                                            </a>
+                                        <div class="collapse" [attr.id]="'parameters' + i + j">
+                                            holaa
+                                        </div>
+                                        <br>
+                                        <br>
+                                    </ng-container>
+                                    <ng-container *ngIf="element.value['responses']">
+                                        <b>Responses:</b>
+                                            <a class="float-right" (click)="displayResponses(j)" class="float-right"  data-toggle="collapse" href="{{ '#response' + i + j }}" role="button" aria-expanded="false" [attr.aria-controls]="'response' + i + j">
+                                                <i class="{{ iconResponses[j] }}"></i>
+                                            </a>
+                                        <div class="collapse" [attr.id]="'response' + i + j">
+                                                <div *ngFor="let response of element.value['responses'] | keyvalue; let p = index">
+                                                    <span class="badge badge-pill" [ngClass]="{
+                                                        'badge-success m-2' : response.key[0] === '2',
+                                                        'badge-primary m-2' : response.key[0] === '3',
+                                                        'badge-warning m-2' : response.key[0] === '4',
+                                                        'badge-danger m-2' : response.key[0] === '5'
+                                                    }">
+                                                        {{ response.key }}
+                                                    </span>
+                                                    <div class="float-right">
+                                                        {{ response.value['description'] }}
+                                                    </div>
+                                                <!--
+                                                    <a class="float-right" (click)="displayResponse(p)" class="float-right"  data-toggle="collapse" href="{{ '#response' + i + j + p}}" role="button" aria-expanded="false" [attr.aria-controls]="'response' + i + j + p">
+                                                        <i class="{{ iconResponse[p] }}"></i>
+                                                    </a>
+                                                    <hr>
+                                                    <div class="collapse" [attr.id]="'response' + i + j + p">
+                                                        <br><br>
+                                                        <ng-container *ngIf="response.value['description']">
+                                                            <b>Description:</b>
+                                                                <div class="float-right">
+                                                                    {{ element.value['description'] }}
+                                                                </div>
+                                                            <br>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="response.value['headers']">
+                                                            <b>Headers:</b>
+                                                            <br>
+                                                            <div *ngFor="let header of response.values['headers'] | keyvalue">
+                                                                {{ header.key }} {{ header.value['description']}}
+                                                            </div>
+                                                        </ng-container>
+                                                    </div>
+                                                -->
+                                                </div>
+                                        </div>
+                                        <br>
+                                        <br>
+                                    </ng-container>
+                                    <br>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="card">
+
+            <h4 class="card-title p-3">
+                Related data:
+            </h4>
+            <div class="card-body">
+                
+                <table class="table table-hover">
+                    <thead class="table thead-dark">
+
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Pi-Scope</th>
+                            <th scope="col">Purpose</th>
+                            <th scope="col">App</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+
+                <b>Name:</b>
+                    <div class="float-right">{{ api['title'] }}</div>
+                <br><br>
+                <b>Id:</b>
+                    <div class="float-right">{{ api['id'] }}</div>
+                <br><br>
+                <b>Type:</b>
+                    <div class="float-right">Api</div>
+                <br><br>
+                <b>Version:</b>
+                    <div class="float-right">{{ api['version'] }}</div>
+                <br><br>
+                <b>Verify identifiers:</b>
+                    <i *ngIf="api['verify_identifiers'] === true" class="mdi mdi-checkbox-marked-outline float-right"></i>
+                    <i *ngIf="api['verify_identifiers'] === false" class="mdi mdi-close-box-outline float-right"></i>
+                <br><br>
+
+                <hr>
+                <br><br>
+                <b>Total number of pi-scopes:</b>
+                    <div class="float-right">{{ api['scopes'].length }}</div>
+
+                <br><br>              
+                <hr>
+                <br><br>
+                <!--
+                <b>Download:</b>
+                    <button class="btn btn-outline-success float-right"><i class="fa fa-file-excel-o"></i></button>
+                <br><br>
+                -->
+                <b>Download all related data:</b>
+                    <button (click)="exportRelations()" class="btn btn-outline-success float-right"><i class="fa fa-file-excel-o"></i></button>
+                <br><br>
+                <b>Check relations network graph</b>
+                    <a routerLink="/Smart4P/mapit/{{ env }}/apis/{{ id }}" class="btn btn-outline-primary float-right">Map it!</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+   
+
+    

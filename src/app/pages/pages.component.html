@@ -1,0 +1,20 @@
+<div id="main-wrapper">
+    
+    <app-header [notifications]="notifications"></app-header>
+
+    <app-sidebar></app-sidebar>
+
+    <div class="page-wrapper">
+        <div class="container-fluid">       
+
+            <router-outlet></router-outlet>
+         
+        </div>
+        
+        <footer class="footer">
+            © {{ year }} Smart4P by Telefónica
+        </footer>
+        
+    </div>
+
+</div>

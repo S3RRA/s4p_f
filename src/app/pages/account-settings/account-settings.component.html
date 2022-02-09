@@ -1,0 +1,83 @@
+<app-breadcrumbs [places]="where"></app-breadcrumbs>
+
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+
+                <h4>Account settings:</h4>
+                <hr>
+
+                <br>
+                Choose theme:
+
+                    <ul id="themecolors" class="m-t-20">
+                        <li><b>With light sidebar:</b></li>
+                        <li><a (click)="changeTheme('default')" data-theme="default" class="selector default-theme">1</a></li>
+                        <li><a (click)="changeTheme('green')" data-theme="green" class="selector green-theme">2</a></li>
+                        <li><a (click)="changeTheme('red')" data-theme="red" class="selector red-theme">3</a></li>
+                        <li><a (click)="changeTheme('blue')" data-theme="blue" class="selector blue-theme">4</a></li>
+                        <li><a (click)="changeTheme('purple')" data-theme="purple" class="selector purple-theme">5</a></li>
+                        <li><a (click)="changeTheme('megna')" data-theme="megna" class="selector megna-theme">6</a></li>
+                        
+                        <li class="d-block m-t-30"><b>With dark sidebar:</b></li>
+                        <li><a (click)="changeTheme('default-dark')"data-theme="default-dark" class="selector default-dark-theme">7</a></li>
+                        <li><a (click)="changeTheme('green-dark')"data-theme="green-dark" class="selector green-dark-theme">8</a></li>
+                        <li><a (click)="changeTheme('red-dark')"data-theme="red-dark" class="selector red-dark-theme">9</a></li>
+                        <li><a (click)="changeTheme('blue-dark')" data-theme="blue-dark" class="selector blue-dark-theme">10</a></li>
+                        <li><a (click)="changeTheme('purple-dark')"data-theme="purple-dark" class="selector purple-dark-theme">11</a></li>
+                        <li><a (click)="changeTheme('megna-dark')"data-theme="megna-dark" class="selector megna-dark-theme">12</a></li>
+                    </ul>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+
+                <h4>Contact Support:</h4>
+                <hr>
+                
+                <br>
+                <b><i class="mdi mdi-bug"></i>I have found a bug</b>
+                    <button (click)="alertPop('bug')" class="btn btn-outline-danger float-right">Report</button>
+
+                <br><br>
+
+                <b><i class="mdi mdi-help"></i>I don't know how to use the app</b>
+                    <button (click)="alertPop('help')" class="btn btn-outline-warning float-right">Help</button>
+
+                <br><br>
+                
+                <b><i class="mdi mdi-lightbulb-on-outline"></i>I have a suggestion</b>
+                    <button (click)="alertPop('suggest')" class="btn btn-outline-success float-right">Suggest</button>
+                
+                <br><br>
+        
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+
+                <h4>Change your password:</h4>
+                <hr>
+                
+                <br>
+                
+                <form>
+                    <label for="current">Introduce your current password:</label>
+                    <br>
+                    <input class="form-control" id="currentPassword" type="password" placeholder="Enter your current password">
+                    <span *ngIf="wrongPassword" class="text-danger">Incorrect password please try again.</span>
+                    <br>
+                    <button class="btn btn-outline-success" type="submit" (click)="changePassword()">Change password</button>
+                </form>
+
+                <br><br>
+        
+            </div>
+        </div>
+    </div>
+<div>

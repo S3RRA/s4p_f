@@ -1,0 +1,72 @@
+<app-breadcrumbs [places]="where"></app-breadcrumbs>
+
+<h3>MAP IT</h3>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+
+                    <label for="input">What you want to map?</label>
+                    <input id="input" #termino  (keyup)="buscar(termino.value)" type="text" class="form-control" placeholder="Search apps or apis by id or name" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <label for="filter" data-toggle="collapse" data-target="#filter" aria-expanded="false" aria-controls="filter" style="cursor:pointer"><i class="fa fa-filter"></i>Filter:</label>
+                    <div id="filter" class="collapse">
+                        <div class="row justify-content-around">
+                            <div class="col-4">
+                                <label for="env">Select env:</label>
+                                <div id="env" class="form-check">
+                                    <input class="form-check-input" type="radio" (click)="filter('env=PRO')" id="es-pro">
+                                    <label class="form-check-label" for="es-pro" id="labelapps">
+                                        PRO
+                                    </label>
+                                    <input class="form-check-input" type="radio" (click)="filter('env=PRE')" value="" id="es-pre">
+                                    <label class="form-check-label" for="es-pre" id="labelapps">
+                                        PRE
+                                    </label>
+                                    <input class="form-check-input" type="radio" (click)="filter('env=CERT')" value="" id="es-cert">
+                                    <label class="form-check-label" for="es-cert" id="labelapps">
+                                        CERT
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <label for="env">Select element:</label>
+                                <div id="env" class="form-check">
+                                    <input class="form-check-input" type="radio" (click)="filter('', 'el=apps')" id="app">
+                                    <label class="form-check-label" for="app" id="labelapps">
+                                        App
+                                    </label>
+                                    <input class="form-check-input" type="radio" (click)="filter('', 'el=apis')" id="api">
+                                    <label class="form-check-label" for="api" id="labelapps">
+                                        Api
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                    <hr>  
+                
+
+                    <div class="container">
+                        <table class="table">
+                            <tbody [@listAnimation]="ids.length">
+                                <tr *ngFor="let element of ids">
+                                <td><b>{{ element.environment }}</b></td>
+                                <td>
+                                    <b>{{ element.type | uppercase }}</b>
+                                </td>
+                                <td>
+                                    <b>{{ element.id }}</b>
+                                </td>
+                                <td>
+                                    <a *ngIf="element.type === 'apis'" type="button" routerLink="/Smart4P/mapit/{{ element.environment }}/{{ element.type }}/{{ element.url }}" class="btn btn-outline-primary">Map me</a>
+                                    <a *ngIf="element.type === 'apps'" type="button" routerLink="/Smart4P/mapit/{{ element.environment }}/{{ element.type }}/{{ element.id }}" class="btn btn-outline-primary">Map me</a>
+                                </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

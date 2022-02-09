@@ -1,0 +1,70 @@
+<h3>COMPARING {{ data.type | uppercase }}: {{ data.id1 }} ({{ data.env1 }}) with {{ data.id2 }} ({{ data.env2 }})</h3>
+
+<div class="card">
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-6">
+<!--
+                <highcharts-chart
+                    id="chart" 
+                    [Highcharts]="Highcharts"  
+                    [options]="options"
+                    style="padding: 0px">
+                </highcharts-chart>
+-->
+            </div>
+            <div class="col-6">
+
+                <a data-toggle="collapse" href="#piscopes_match" role="button" aria-expanded="false" [attr.aria-controls]="'piscopes_match'">
+                    Match ({{ response.scopesDiff['match'].length }}):
+                </a>
+                <div class="collapse" id="piscopes_match" >
+                    <ul class="list-inline" *ngFor="let el of response.scopesDiff['match']">
+                        <li class="list-inline-item" id="piscopes_match">
+                            <span style="font-size: 1em;" class="badge rounded-pill bg-warning">{{ el }}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <hr>
+
+                <a data-toggle="collapse" href="#{{ data.id1 }}" role="button" aria-expanded="false" [attr.aria-controls]="data.id1">
+                    Only in {{ data.id1 }} - {{ data.env1 }} ({{ response.scopesDiff['only'+data.id1+data.env1].length }}):
+                </a>
+                <div class="collapse" id="{{ data.id1 }}">
+                    <ul *ngFor="let el of response.scopesDiff['only'+data.id1+data.env1]">
+                        <li class="list-inline-item">
+                            <span routerLink="/Smart4P/{{ env1 }}/pi-scopes" style="font-size: 1em; cursor:pointer;" class="badge rounded-pill bg-warning">{{ el }}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <hr>
+
+                <a data-toggle="collapse" href="#{{ data.id2 }}" role="button" aria-expanded="false" [attr.aria-controls]="data.id2">
+                    Only in {{ data.id2 }} - {{ data.env2 }} ({{ response.scopesDiff['only'+data.id2+data.env2].length }}):
+                </a>
+                <div class="collapse" id="{{ data.id2 }}">
+                    <ul *ngFor="let el of response.scopesDiff['only'+data.id2+data.env2]">
+                        <li class="list-inline-item" id="{{ data.id2 }}">
+                            <span routerLink="/Smart4P/{{ env2 }}/pi-scopes" style="font-size: 1em; cursor:pointer;" class="badge rounded-pill bg-warning">{{ el }}</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr>
+        
+        <div><!--
+            <ngx-monaco-diff-editor style="height: calc(50vh - 100px);" [options]="options" [originalModel]="originalModel" [modifiedModel]="modifiedModel"></ngx-monaco-diff-editor>
+        --></div>
+        <br>
+    </div>
+</div>
+
+

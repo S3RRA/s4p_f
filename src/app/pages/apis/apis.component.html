@@ -1,0 +1,59 @@
+<app-breadcrumbs [places]="where"></app-breadcrumbs>
+
+
+<h3>{{ env }}APIS</h3>
+
+<div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Search API's">
+
+                <br><br>
+
+                <div class="card-columns m-5" [@listAnimation]="apis.length">
+
+                    <div *ngFor="let api of apis" class="card card-outline-inverse border">
+
+                    <div class="card-body">
+                        <span class="badge badge-pill badge-success">API</span><hr>
+                        <h5 class="card-title">{{ api.title }}</h5>
+                            <div class="float-right">
+                                v{{ api.version }}
+                            </div>
+                        <p class="card-text">
+                            <a routerLink="/Smart4P/{{ env }}/apis/{{ api.id }}" class="btn btn-outline-success"> See more... </a> 
+                        </p>
+                    </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+            <div id="chartt" class="card-body">
+<!--
+                <highcharts-chart
+                    id="chart" 
+                    [Highcharts]="Highcharts"  
+                    [options]="options"
+                    style="padding: 0px">
+                </highcharts-chart>
+            -->
+
+                <br>
+                
+                Total number of apis: <div class="float-right">{{ apis.length }}</div>
+
+                <br><br>
+
+                Download all apis: <div class="float-right"><button (click)="export()" class="btn btn-outline-success"><i class="fa fa-file-excel-o"></i></button></div>
+
+            </div>
+        </div>
+    </div>
+</div>

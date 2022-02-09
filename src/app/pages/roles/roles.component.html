@@ -1,0 +1,82 @@
+<!-- Breadcrumbs -->
+<app-breadcrumbs [places]="where"></app-breadcrumbs>
+
+<h3>Roles</h3>
+
+
+    <div class="col-12">
+        <div class="card" *ngFor="let role of roles; let i = index">
+            <div class="card-body">
+
+                <div>
+                    <i style="font-size: 5em" class="ti-user"></i>
+                    <h3 class="float-right">{{ role['id'] }}</h3>
+                    <br>
+                        <a class="float-right" (click)="displayRole(i)" data-toggle="collapse" href="#role{{ i }}" role="button" aria-expanded="false" [attr.aria-controls]="'role' + i">
+                            <i class="{{ iconRoles[i] }}"></i>
+                        </a>
+                    <hr>
+                    <div class="collapse" [attr.id]="'role'+i">
+                        <b>ID:</b>
+                            <div class="float-right">
+                                {{ role['id'] }}
+                            </div>
+                        <br>
+                        <br>
+                        <b>Identifier bound scopes:   {{ role['identifier_bound_scopes'].length }}</b>
+                            <a *ngIf="role['identifier_bound_scopes'].length > 0"class="float-right" (click)="displayIdentifierScopes(i)" data-toggle="collapse" href="#identifierScopes{{ i }}" role="button" aria-expanded="false" [attr.aria-controls]="'identifierScopes' + i">
+                                <i class="{{ iconIdentifierScopes[i] }}"></i>
+                            </a>
+                            <div class="collapse" [attr.id]="'identifierScopes' + i">
+                                <ul class="list-inline">  
+                                    <li class="list-inline-item" *ngFor="let idScope of role['identifier_bound_scopes']">
+                                        <span class="badge badge-pill badge-primary">
+                                            {{ idScope }}
+                                        </span>
+                                    <li>
+                                </ul>
+                            </div>
+                        <br>
+                        <br>
+                        <b>Role bound scopes:   {{ role['role_bound_scopes'].length }}</b>
+                            <a *ngIf="role['role_bound_scopes'].length > 0"class="float-right" (click)="displayRoleScopes(i)" data-toggle="collapse" href="#roleScopes{{ i }}" role="button" aria-expanded="false" [attr.aria-controls]="'roleScopes' + i">
+                                <i class="{{ iconRoleScopes[i] }}"></i>
+                            </a>
+                            <div class="collapse" [attr.id]="'roleScopes' + i">
+                                <ul class="list-inline">  
+                                    <br>
+                                    <li class="list-inline-item" *ngFor="let idScope of role['role_bound_scopes']">
+                                        <span class="badge badge-pill badge-primary">
+                                            {{ idScope }}
+                                        </span>
+                                    <li>
+                                </ul>
+                            </div>
+                        <br>
+                        <br>
+                        <b>User bound scopes:   {{ role['user_bound_scopes'].length }}</b>
+                            <a *ngIf="role['user_bound_scopes'].length > 0"class="float-right" (click)="displayUserScopes(i)" data-toggle="collapse" href="#userScopes{{ i }}" role="button" aria-expanded="false" [attr.aria-controls]="'userScopes' + i">
+                                <i class="{{ iconUserScopes[i] }}"></i>
+                            </a>
+                            <div class="collapse" [attr.id]="'userScopes' + i">
+                                <div  *ngIf="role['user_bound_scopes'].length > 7">
+                                    <br>
+                                    <input #terminoUser type="text" class="form-control" (keyup)="buscar('user', i, terminoUser.value)" placeholder="Search scopes...">
+                                    <br>
+                                <div>
+                                <ul class="list-inline">  
+                                    <br>
+                                    <li class="list-inline-item" *ngFor="let idScope of role['user_bound_scopes']">
+                                        <span class="badge badge-pill badge-primary">
+                                            {{ idScope }}
+                                        </span>
+                                    <li>
+                                </ul>
+                            </div>
+                    </div>
+                    <br>
+                </div>
+
+            </div>
+        </div>
+    </div>

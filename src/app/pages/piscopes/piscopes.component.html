@@ -1,0 +1,80 @@
+<!-- Breadcrumbs -->
+<app-breadcrumbs [places]="where"></app-breadcrumbs>
+
+<h3>PI-SCOPES</h3>
+
+<div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Search API's">
+
+                <br><br>
+
+                <div class="card-columns m-5" [@listAnimation]="piscopes.length">
+
+                    <div *ngFor="let piscope of piscopes" class="card card-outline-inverse border">
+
+                        <div class="card-body">
+                            <span class="badge badge-pill badge-primary">PI-Scope</span><hr>
+                                <h5 class="card-title">{{ piscope.title[0].value }}</h5>
+                                <p class="card-block">
+                                    <!--(click)="sendData(piscope)"-->
+                                    <a (click)="displayPiscope(piscope)" class="btn btn-outline-primary"> Ver más... </a> 
+                                </p>
+                            </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+<!--
+                <app-dona
+                    style="display:block"
+                    titulo="Nº of grant types used"
+                    [labels]="labels1"
+                    [data]="data1"
+                    type="bar"
+                >
+                </app-dona>
+-->
+                <br>
+                
+                Total number of PI-Scopes: {{ piscopes.length }}
+
+                <br><br>
+
+                Download all PI-Scopes: <button (click)="export('pi-scopes')" class="btn btn-outline-success"><i class="fa fa-file-excel-o"></i></button>
+
+            </div>
+        </div>
+
+        <div class="card fadeInDown" *ngIf="display">
+            <div class="card-body">
+                <a ><i (click)="close()"class="mdi mdi-close float-right"></i></a>
+                <br>
+                <h4>{{ piscope['title'][0]['value'] }}</h4>
+                <hr>
+                <br> 
+                <label for="id"><b>ID:</b></label>
+                    <p id="id" class="float-right">{{ piscope['id'] }}</p>
+                <br>
+                <label for="description"><b>Description:</b></label>
+                    <br>
+                    <p id="description">{{ piscope['description'][0]['value'] }}</p>
+                <br>
+                <hr>
+                <br>
+                Download related data: <button (click)="export2()" class="btn btn-outline-success"><i class="fa fa-file-excel-o"></i></button>
+            </div>
+        </div>
+
+    </div>
+</div>

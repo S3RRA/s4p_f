@@ -1,0 +1,72 @@
+<h3>COMPARATOR</h3>
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="container">
+                
+                    <div class="row">
+                        <label for="elements">Which you want to compare?</label><br><br>
+                        <form id="elements">
+                            <div class="form-check form-check-inline" *ngFor="let element of elements">
+                                <br><br>
+                                <input class="form-check-input" type="radio" value="" id="{{ element.id }}" (click)="radio(element.id)">
+                                <label class="form-check-label" for="{{ element.id }}" id="{{ element.id }}">
+                                    {{ element.label }}
+                                </label>
+                                <br><br>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="progress col-12" *ngIf="progressbar">
+                        <div 
+                            #progressbar
+                            class="progress-bar progress-bar-striped progress-bar-animated"
+                            role="progressbar" 
+                            [attr.aria-valuenow]="progressbar_percent" 
+                            aria-valuemin="0" 
+                            aria-valuemax="100" >
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="display">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+            
+                <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Search {{ type }}...">
+            
+                <hr>    
+
+                <div class="container">
+                    <table class="table">
+                        <tbody>
+                            <tr *ngFor="let element of searched">
+                                <td [ngClass]="{'table-info' : element.id === id && element.env === env }"><b>{{ element.id }}</b></td>
+                                <td [ngClass]="{'table-info' : element.id === id && element.env === env }">{{ element.env }}</td>
+                                <td [ngClass]="{'table-info' : element.id === id && element.env === env }">
+                                    <a *ngIf="element.id !== id || element.env !== env" 
+                                        type="button" 
+                                        class="btn btn-outline-primary"
+                                        (click)="diffElements(element.id, element.env)"    
+                                    >Compare me</a>
+                                    <div *ngIf="selected === true && element.id === id && element.env === env"> Already selected </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+    

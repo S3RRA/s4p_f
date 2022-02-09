@@ -1,0 +1,71 @@
+<!-- Breadcrumbs -->
+<app-breadcrumbs [places]="where"></app-breadcrumbs>
+
+<h3>PURPOSES</h3>
+
+<div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Search purposes...">
+
+                <br><br>
+
+                <div class="card-columns m-5">
+
+                    <div *ngFor="let purpose of purposes" class="card card-outline-inverse border">
+
+                    <div class="card-body">
+                        <span class="badge badge-pill badge-warning">PURPOSE</span><hr>
+                        <h5 class="card-title">{{ purpose.title[0].value }}</h5>
+                        <p class="card-text">
+                            <a routerLink="/Smart4P/PRE/purposes/{{ purpose.id }}" class="btn btn-outline-warning"> See more... </a> 
+                        </p>
+                    </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+<!--
+                <highcharts-chart
+                    id="chart" 
+                    [Highcharts]="Highcharts"  
+                    [options]="options"
+                    style="padding: 0px">
+                </highcharts-chart>
+                <br>
+            -->            
+                Total number of purposes: {{ purposes.length }}
+
+                <br><br>
+
+                <a (click)="display = !display" data-toggle="collapse" href="#noscopes" role="button" aria-expanded="false" aria-controls="noscopes">Purposes without scopes: {{ purposesWithoutScopes.length }}</a>
+
+                <br><br>
+
+                Download all purposes: <button (click)="export()" class="btn btn-outline-success"><i class="fa fa-file-excel-o"></i></button>
+
+            </div>
+        </div>
+        <div *ngIf="purposesWithoutScopes.length > 0 && display === true" class="card" data-toggle="collapse" data-target="#noscopes" aria-expanded="false" aria-controls="noscopes">
+            <div class="card-body">
+                <b>Number of purposes without scopes assigned: {{ purposesWithoutScopes.length }}</b>
+                <hr>
+                <ul *ngFor="let purpose of purposesWithoutScopes" class="list-inline">
+                    <li class="list-inline-item">
+                        <span routerLink="/Smart4P/{{ env }}/purposes/{{ purpose.id }}" style="font-size: 1em; cursor:pointer" class="badge badge-pill badge-warning">{{ purpose.id }}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

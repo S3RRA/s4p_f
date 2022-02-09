@@ -1,0 +1,131 @@
+/*******************
+/*Top bar
+*******************/
+
+.topbar {
+    background: #2a3e52;
+}
+
+.topbar .navbar-header {
+    background: #ffffff;
+}
+
+.topbar .top-navbar .navbar-header .navbar-brand .light-logo {
+    display: none;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.topbar .navbar-light .navbar-nav .nav-item>a.nav-link {
+    color: #ffffff !important;
+}
+
+.topbar .navbar-light .navbar-nav .nav-item>a.nav-link:hover,
+.topbar .navbar-light .navbar-nav .nav-item>a.nav-link:focus {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+
+/*******************
+/*General Elements
+*******************/
+
+a.link:hover,
+a.link:focus {
+    color: #0066FF !important;
+}
+
+.bg-theme {
+    background-color: #0066FF !important;
+}
+
+.pagination>.active>a,
+.pagination>.active>span,
+.pagination>.active>a:hover,
+.pagination>.active>span:hover,
+.pagination>.active>a:focus,
+.pagination>.active>span:focus {
+    background-color: #0066FF;
+    border-color: #0066FF;
+}
+
+.right-sidebar .rpanel-title {
+    background: #0066FF;
+}
+
+.stylish-table tbody tr:hover,
+.stylish-table tbody tr.active {
+    border-left: 4px solid #0066FF;
+}
+
+.text-themecolor {
+    color: #0066FF !important;
+}
+
+.profile-tab li a.nav-link.active,
+.customtab li a.nav-link.active {
+    border-bottom: 2px solid #0066FF;
+    color: #0066FF;
+}
+
+.profile-tab li a.nav-link:hover,
+.customtab li a.nav-link:hover {
+    color: #0066FF;
+}
+
+
+/*******************
+/*Buttons
+*******************/
+
+.btn-themecolor,
+.btn-themecolor.disabled {
+    background: #0066FF;
+    color: #ffffff;
+    border: 1px solid #0066FF;
+}
+
+.btn-themecolor:hover,
+.btn-themecolor.disabled:hover {
+    background: #0066FF;
+    opacity: 0.7;
+    border: 1px solid #0066FF;
+}
+
+.btn-themecolor.active,
+.btn-themecolor:focus,
+.btn-themecolor.disabled.active,
+.btn-themecolor.disabled:focus {
+    background: #0066FF;
+}
+
+
+/*******************
+/*sidebar navigation
+*******************/
+
+.label-themecolor {
+    background: #0066FF;
+}
+
+.sidebar-nav>ul>li.active>a {
+    color: #0066FF;
+    border-color: #0066FF;
+}
+
+.sidebar-nav>ul>li.active>a i {
+    color: #0066FF;
+}
+
+.sidebar-nav ul li a.active,
+.sidebar-nav ul li a:hover {
+    color: #0066FF;
+}
+
+.sidebar-nav ul li a.active i,
+.sidebar-nav ul li a:hover i {
+    color: #0066FF;
+}
+
+.sidebar-nav>ul>li>a i {
+    color: #a6b7bf;
+}

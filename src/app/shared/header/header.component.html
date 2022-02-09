@@ -1,0 +1,80 @@
+
+<header class="topbar">
+    <nav class="navbar top-navbar navbar-expand-md navbar-light">
+        <div class="navbar-header">
+            <a class="navbar-brand" routerLink="/Smart4P/dashboard">
+                <b>
+                    <img src="./../../../assets/images/telefonica-vertical.png" width="80px" alt="homepage" class="dark-logo" />
+                </b>
+            </a>
+        </div>
+        <div class="navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                <li class="nav-item hidden-sm-down"></li>
+            </ul>
+            <ul class="navbar-nav my-lg-0">
+                <li class="nav-item dropdown" *appRole="['admin']"> 
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-google-controller"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right animated flipInY">
+                        <ul class="dropdown-user">
+                            <li>
+                                <div class="dw-user-box">
+                                    <div class="u-text">
+                                        <h4>Admin options</h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a routerLink="/Smart4P/admin"><i class="mdi mdi-account-edit"></i><div class="float-right">Users administration</div></a></li>
+                            <li><a routerLink="/Smart4P/admin"><i class="mdi mdi-trending-up"></i><div class="float-right">Metrics/comming soon</div></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-message"></i>
+                                <div class="notify" *ngIf="notificationHeart"> <span class="heartbit"></span> <span class="point"></span> </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
+                                <ul>
+                                    <li>
+                                        <div class="drop-title">Notifications</div>
+                                    </li>
+                                    <li>
+                                        <div class="message-center">
+                                            <a *ngFor="let notification of nots" (click)="notificationGo(notification)" style="cursor:pointer;">
+                                                <div class="btn btn-warning btn-circle"><i class="fa fa-{{ notification.icon }}"></i></div>
+                                                <div class="mail-contnet">
+                                                    <h5>{{ notification.title }}</h5> <span class="mail-desc">{{ notification.description }}</span> <span class="time">{{ notification.env }}</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-account-circle"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right animated flipInY">
+                        <ul class="dropdown-user">
+                            <li>
+                                <div class="dw-user-box">
+                                    <div class="u-img"><i class="mdi mdi-account-circle" style="width:6; height:6;"></i></div>
+                                    <div class="u-text">
+                                        <h4>{{ email[0] | uppercase }}{{  email.substr(1, email.indexOf('.')) | lowercase }}</h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a routerLink="/Smart4P/account-settings"><i class="ti-settings"></i><div class="float-right">Account Settings</div></a></li>
+                            <li><a routerLink="/Smart4P/account-settings"><i class="mdi mdi-lightbulb-on-outline"></i><div class="float-right">Contact Support</div></a></li>
+                            <li><a (click)="logout()" routerLink="/login"><i class="mdi mdi-logout-variant"></i><div class="float-right">Logout</div></a></li>
+                        </ul>
+                    </div>
+                </li>
+                 
+            </ul>
+        </div>
+    </nav>
+</header>

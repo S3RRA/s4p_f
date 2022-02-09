@@ -1,0 +1,63 @@
+<!-- Breadcrumbs -->
+<app-breadcrumbs [places]="where"></app-breadcrumbs>
+
+<h3>DATASETS</h3>
+
+<div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+            <div class="card-body">
+
+                <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Search Datasets">
+                
+                <br><br>
+
+                <div class="card-columns m-5">
+
+                    <div *ngFor="let dataset of datasets" class="card card-outline-inverse border">
+
+                    <div class="card-body">
+                        <span class="badge badge-pill badge-success">DATASET</span><hr>
+                        <h5 class="card-title">{{ dataset.id.slice(0, -2) }}</h5>
+                            <div class="float-right">
+                                v{{ dataset.version }}
+                            </div>
+                        <p class="card-text">
+                            <a routerLink="/Smart4P/PRE/datasets/{{ dataset.id }}" class="btn btn-outline-success"> See more... </a> 
+                        </p>
+                    </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-4 float-right">
+        <div class="card">
+            <div id="chartt" class="card-body">
+<!--
+                <highcharts-chart
+                    id="chart" 
+                    [Highcharts]="Highcharts"  
+                    [options]="options"
+                    style="padding: 0px">
+                </highcharts-chart>
+            -->        
+            </div>
+        </div>
+    </div>
+    <div id="grantTypeUse" class="card" *ngIf="displayme === true">
+        <div class="card-body">
+            <b>Joins at dataset: {{ list.length }}</b>
+            <hr>
+            <ul *ngFor="let element of list" class="list-inline">
+                <li class="list-inline-item">
+                    <span routerLink="/Smart4P/{{ env }}/datasets/{{ element.dataset_id }}" style="font-size: 1em; cursor:pointer" class="badge rounded-pill bg-info">{{ element.dataset_id }}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

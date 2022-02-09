@@ -1,0 +1,236 @@
+<!-- Breadcrumbs -->
+<app-breadcrumbs [places]="where"></app-breadcrumbs>
+
+<h3>User Profile</h3>
+
+<div class="card col-12">
+    <div class="card-body">
+
+            <h6>Search clients via User Profile API:</h6>
+
+            <hr>
+            <br>
+
+            <div class="form-group">
+                <form #f="ngForm" (submit)="onSubmit(f)" >
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Select type:</label>
+                            <select name="identityType" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" [(ngModel)]="client.identityType" required>
+                                <option selected>Choose...</option>
+                                <option value="phone_number">Landline</option>
+                                <option value="phone_number">Mobile phone</option>
+                                <option value="uid">IPTV</option>
+                                <option value="NIF">NIF</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-10">
+                            <label class="my-1 mr-2" for="phone">Enter value:</label>
+                            <input name="identityId" id="phone" placeholder="Enter value..." class="form-control" [(ngModel)]="client.identityId" required>
+                        </div>
+                    </div>
+                    <small style="float:right;">Do you want to check if UserProfile is working? Try with: NIF-00967535V</small>
+                    <button type="submit" class="btn btn-outline-success">Submit</button>
+                </form>
+            </div>
+
+            <hr>
+            Check which roles should identities have: 
+            <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <i class="mdi mdi-plus-circle-outline"></i>
+            </a>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <ul class="list-group">
+                        <a data-toggle="collapse" href="#nif" aria-expanded="false" aria-controls="nif">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">                           
+                                NIF
+                                <span class="badge badge-primary badge-pill">1</span>
+                                <div class="collapse" id="nif">
+                                owner
+                                </div>
+                            </li>
+                        </a>
+                        <a data-toggle="collapse" href="#movilLight" aria-expanded="false" aria-controls="movilLight">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">                           
+                                Línea móvil light
+                                <span class="badge badge-primary badge-pill">3</span>
+                                <div class="collapse" id="movilLight">
+                                owner   |   admin   |   basic
+                                </div>
+                            </li>
+                        </a>
+                        <a data-toggle="collapse" href="#movilUsuario" aria-expanded="false" aria-controls="movilUsuario">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">                           
+                                Línea móvil usuario
+                                <span class="badge badge-primary badge-pill">2</span>
+                                <div class="collapse" id="movilUsuario">
+                                user    |   basic
+                                </div>
+                            </li>
+                        </a>
+                        <a data-toggle="collapse" href="#landline" aria-expanded="false" aria-controls="landline">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">                           
+                                Línea fija
+                                <span class="badge badge-primary badge-pill">3</span>
+                                <div class="collapse" id="landline">
+                                owner   |   admin   |   basic
+                                </div>
+                            </li>
+                        </a>
+                        <a data-toggle="collapse" href="#iptv" aria-expanded="false" aria-controls="iptv">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">                           
+                                IPTV
+                                <span class="badge badge-primary badge-pill">1</span>
+                                <div class="collapse" id="iptv">
+                                owner 
+                                </div>
+                            </li>
+                        </a>
+                        <a data-toggle="collapse" href="#userId" aria-expanded="false" aria-controls="userId">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">                           
+                                userId
+                                <span class="badge badge-primary badge-pill">1</span>
+                                <div class="collapse" id="userId">
+                                owner 
+                                </div>
+                            </li>
+                        </a>
+                        <a data-toggle="collapse" href="#otros" aria-expanded="false" aria-controls="otros">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">                           
+                                Otros
+                                <span class="badge badge-primary badge-pill">1</span>
+                                <div class="collapse" id="otros">
+                                owner 
+                                </div>
+                            </li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+    </div>
+</div>
+
+<div class="card col-12"  *ngIf="display">
+    <div class="card-body">
+        
+        <div class="row">
+
+            <div class="card">
+                <h3>User Profile v3 | U360:</h3>
+                <hr>
+                <b>ID: {{ v3.id }}</b>
+                <br>
+                <b> Name: {{ v3.name }}</b>
+                <br>
+                <!--Id Document-->
+                <a (click)="displaydocument()" data-toggle="collapse" href="#document" role="button" aria-expanded="false" aria-controls="document">
+                    ID Document: <i class="{{ documentbtn }}"></i>
+                </a>
+                <div class="collapse border rounded" id="document">
+                    <b>Country:</b> {{ v3.id_document.country }}
+                    <br>
+                    <b>Type:</b> {{v3.id_document.type }}
+                    <br>
+                    <b>Value:</b> {{ v3.id_document.value }}
+                </div>
+                <br>
+
+                <!--Identities-->
+                <a (click)="displaybtn()" data-toggle="collapse" href="#identities" role="button" aria-expanded="false" aria-controls="identities">
+                    Identities: {{ v3.identities.length }} <i class="{{ identitiesbtn }}"></i>
+                </a>
+                <div class="collapse" id="identities">
+                    <div class="card card-body">
+
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Roles</th>
+                                <th scope="col">Services</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let identity of v3.identities">      
+                                    <td >{{ identity.id }}</td>
+                                    <td >{{ identity.type }}</td>
+                                    <td >{{ identity.roles }}</td>
+                                    <td >{{ identity.services }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br>
+                <!--JSON-->
+                 <a (click)="displayjson()" data-toggle="collapse" href="#json" role="button" aria-expanded="false" aria-controls="json">
+                    See JSON: <i class="{{ jsonbtn }}"></i>
+                </a>
+                <div class="collapse" id="json">
+                    <pre>
+                        {{ v3 | json }}
+                    </pre>
+                </div>
+            </div>
+<!--
+            <div class="card col">
+                <h3>User Profile v2 | BI:</h3>
+                <hr>
+                <b>ID: {{ v2.id }}</b>
+                <br>
+                <b> Name: {{ v2.name }}</b>
+                <br>
+                <a (click)="displaydocument2()" data-toggle="collapse" href="#document2" role="button" aria-expanded="false" aria-controls="document2">
+                    ID Document: <i class="{{ documentbtn2 }}"></i>
+                </a>
+                <div class="collapse border rounded" id="document2">
+                    <b>Country:</b> {{ v2.id_document.country }}
+                    <br>
+                    <b>Type:</b> {{v2.id_document.type }}
+                    <br>
+                    <b>Value:</b> {{ v2.id_document.value }}
+                </div>
+                <br>
+                <a (click)="displaybtn2()" data-toggle="collapse" href="#identities2" role="button" aria-expanded="false" aria-controls="identities2">
+                    Identities: <i class="{{ identitiesbtn2 }}"></i>
+                </a>
+                <div class="collapse" id="identities2">
+                    <div class="card card-body">
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Services</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let identity of v2.identities; let i = index;">                       
+                                    <td *ngIf="identity.type !== 'uid'">{{ identity.id }}</td>
+                                    <td *ngIf="identity.type !== 'uid'">{{ identity.type }}</td>
+                                    <td *ngIf="identity.type !== 'uid'">{{ identity.services }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br>
+                 <a (click)="displayjson2()" data-toggle="collapse" href="#json2" role="button" aria-expanded="false" aria-controls="json2">
+                    See JSON: <i class="{{ jsonbtn2 }}"></i>
+                </a>
+                <div class="collapse" id="json2">
+                    <pre>
+                        {{ v2 | json }}
+                    </pre>
+                </div>
+            </div>
+            -->
+
+        </div>
+    </div>
+</div>
+
+

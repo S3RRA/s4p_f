@@ -1,0 +1,70 @@
+<app-breadcrumbs [places]="where"></app-breadcrumbs>
+
+<h3>APPS</h3>
+
+<div class="row">
+
+    <div class="col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Search APP's">
+
+                <br><br>
+
+                <div class="card-columns m-5" [@listAnimation]="apps.length">
+
+                    <div *ngFor="let app of apps" class="card card-outline-inverse border">
+
+                    <div class="card-body">
+                        <span class="badge badge-pill badge-info">APP</span><hr>
+                        <h5 class="card-title">{{ app.name }}</h5>
+                        <p class="card-text">
+                            <a routerLink="/Smart4P/{{ env }}/apps/{{ app.id }}" class="btn btn-outline-info"> See more... </a> 
+                        </p>
+                    </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-4 col-lg-4 float-right">
+        <div class="card">
+            <div id="chartt" class="card-body">
+<!--
+                <highcharts-chart
+                    id="chart" 
+                    [Highcharts]="Highcharts"  
+                    [options]="options"
+                    style="padding: 0px">
+                </highcharts-chart>
+            -->
+                <br>
+                
+                Total number of apps: <div class="float-right">{{ apps.length }}</div>
+
+                <br><br>
+
+                Download all apps relations: 
+                    <div class="float-right"><button (click)="export()" class="btn btn-outline-success"><i class="fa fa-file-excel-o"></i></button></div>
+
+            </div>
+        </div>
+        <div id="grantTypeUse" class="card" *ngIf="displayList === true">
+            <div class="card-body">
+                <b>Number of apps using grant type '<b>{{ grantType }}</b>': {{ list.length }}</b>
+                <hr>
+                <ul *ngFor="let element of list" class="list-inline">
+                    <li class="list-inline-item">
+                        <span routerLink="/Smart4P/{{ env }}/apps/{{ element }}" style="font-size: 1em; cursor:pointer" class="badge rounded-pill bg-info">{{ element }}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+</div>
