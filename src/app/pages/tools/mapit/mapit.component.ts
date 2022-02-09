@@ -12,6 +12,9 @@ import { links, nodes, MANY_BODY_STRENGTH } from './data';
 })
 export class MapitComponent implements OnInit {
 
+  svg_width = 0;
+  svg_height = 0;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -19,10 +22,10 @@ export class MapitComponent implements OnInit {
     const svg = d3.select('#container');
 
     const svg_container = document.getElementById('map-container')!;
-    const width = svg_container.getBoundingClientRect().width;
-    const height = svg_container.getBoundingClientRect().height;
-    const centerX = width/2;
-    const centerY = height/2;
+    this.svg_width = svg_container.offsetWidth;
+    this.svg_height = svg_container.offsetHeight;
+    const centerX = this.svg_width/2;
+    const centerY = this.svg_height/2;
 
     const simulation = forceSimulation(nodes)
       .force('charge', forceManyBody().strength(MANY_BODY_STRENGTH))
@@ -89,7 +92,7 @@ export class MapitComponent implements OnInit {
           svg.attr("transform", event.transform)
         })
         //.on("dblclick.zoom", null);    
-    svg.call(zoomFn);
+    //svg.call(zoomFn);
 
     //Legend
     let legendIconX = 10;
@@ -139,8 +142,8 @@ export class MapitComponent implements OnInit {
     simulation.on('tick', () => {
       let margin = 5;
         circles
-          .attr('cx', ((node: any) => Math.max(margin, Math.min(width - margin, node.x))) as any)
-          .attr('cy', ((node: any) => Math.max(margin, Math.min(height - margin, node.y))) as any);
+          .attr('cx', ((node: any) => Math.max(margin, Math.min(this.svg_width - margin, node.x))) as any)
+          .attr('cy', ((node: any) => Math.max(margin, Math.min(this.svg_height - margin, node.y))) as any);
         
         text
           .attr('x', ((node: any) => node.x) as any)
