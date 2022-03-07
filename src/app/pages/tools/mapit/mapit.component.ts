@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { forceSimulation, forceLink, forceManyBody, forceCenter, drag, zoom as d3_z } from 'd3';
+import { forceSimulation, forceLink, forceManyBody, forceCenter, drag, zoom as d3_z, SimulationNodeDatum, SimulationLinkDatum } from 'd3';
 import * as d3 from 'd3-selection';
-import { links, nodes, MANY_BODY_STRENGTH } from './data';
+import { links, nodes } from './data';
+
+import { a } from './mydata'
 
 @Component({
   selector: 'app-mapit',
@@ -14,10 +16,15 @@ export class MapitComponent implements OnInit {
 
   svg_width = 0;
   svg_height = 0;
+  radius = 10;
 
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit(): void {
+    
+    const nodes = a.nodes;
+    const links = a.links;
 
     const svg = d3.select('#container');
 
@@ -27,9 +34,9 @@ export class MapitComponent implements OnInit {
     const centerX = this.svg_width/2;
     const centerY = this.svg_height/2;
 
-    const simulation = forceSimulation(nodes)
-      .force('charge', forceManyBody().strength(MANY_BODY_STRENGTH))
-      .force('link', forceLink(links).distance(((link: any) => link.distance) as any))
+    const simulation = forceSimulation()
+      .force('charge', forceManyBody().strength(0))
+      .force('link', forceLink((links).distance(((link: any) => link.distance) as any))
       .force('center', forceCenter(centerX, centerY));
     
     const dragInteraction: any = drag().on('drag', (event: any, node: any) => {
@@ -38,9 +45,6 @@ export class MapitComponent implements OnInit {
       simulation.alpha(1);
       simulation.restart();
     });
-
-    const g: any = svg.append("g")
-      .attr("class", "everything");
 
     const lines = svg
       .selectAll('line')
@@ -60,7 +64,7 @@ export class MapitComponent implements OnInit {
       .enter()
       .append('circle')
       .attr('fill', ((node: any) => node.color || 'gray') as any)
-      .attr('r', ((node: any) => node.size) as any)
+      .attr('r', this.radius - .75 /*((node: any) => node.size) as any*/)
       .attr('class', (node: any) => `node-${ node.id }`)
       .attr('id', (node: any) => `node-${ node.id }`)
       .attr('visibility', (node: any) => node.visibility ? node.visibility : 'hidden')
@@ -84,15 +88,6 @@ export class MapitComponent implements OnInit {
       .attr('type', 'text')
       .style('pointer-events', ('none') as any)
       .text( (node: any) => node.id );
-    
-    
-    const zoomFn: any = d3_z()
-        .scaleExtent([1, 8])
-        .on('zoom', function(event: any, d: any) {
-          svg.attr("transform", event.transform)
-        })
-        //.on("dblclick.zoom", null);    
-    //svg.call(zoomFn);
 
     //Legend
     let legendIconX = 10;
@@ -140,10 +135,11 @@ export class MapitComponent implements OnInit {
     } 
     
     simulation.on('tick', () => {
-      let margin = 5;
+      let width = this.svg_width;
+      let height = this.svg_height;
         circles
-          .attr('cx', ((node: any) => Math.max(margin, Math.min(this.svg_width - margin, node.x))) as any)
-          .attr('cy', ((node: any) => Math.max(margin, Math.min(this.svg_height - margin, node.y))) as any);
+        .attr("cx", function(d) { return d.x = Math.max(10, Math.min(width - 10, d.x)); })
+        .attr("cy", function(d) { return d.y = Math.max(10, Math.min(height - 10, d.y)); });
         
         text
           .attr('x', ((node: any) => node.x) as any)

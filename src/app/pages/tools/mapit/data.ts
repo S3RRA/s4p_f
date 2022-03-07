@@ -1,4 +1,8 @@
 import { colors } from './colors';
+import { dataaa } from './dataset';
+import * as _ from 'lodash';
+
+import { a } from './mydata';
 
 export const nodes: any[] = [];
 export const links: any[]  = [];
@@ -7,7 +11,7 @@ const MAIN_NODE_SIZE = 40;
 const CHILD_NODE_SIZE = 15;
 const LEAF_NODE_SIZE = 5;
 
-const MAIN_NODE_DISTANCE = 30;
+const MAIN_NODE_DISTANCE = 1;
 const DEFAULT_DISTANCE = 50;
 const LEAF_NODE_DISTANCE = 30;
 
@@ -81,21 +85,108 @@ const addParents = (parentNode: any, childNode: any) => {
     }
 }
 
-
-//------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------
 //PRUEBAS 4P
-const api = { id: 'Api', color: API_COLOR, distance: API_DISTANCE, size: API_SIZE, type: 'node' };
-const scope1 = { id: 'Scope 1', color: SCOPE_COLOR, distance: SCOPE_DISTANCE, size: SCOPE_SIZE, type: 'node' };
-const scope2 = { id: 'Scope 2', color: SCOPE_COLOR, distance: SCOPE_DISTANCE, size: SCOPE_SIZE, type: 'node' };
-const scope3 = { id: 'Scope 3', color: SCOPE_COLOR, distance: SCOPE_DISTANCE, size: SCOPE_SIZE, type: 'node' };
-const role1 = { id: 'Role 1', color: ROLE_COLOR, distance: ROLE_DISTANCE, size: ROLE_SIZE, type: 'node' };
-const role2 = { id: 'Role 2', color: ROLE_COLOR, distance: ROLE_DISTANCE, size: ROLE_SIZE, type: 'node' };
-const purpose = { id: 'purpose 1', color: PURPOSE_COLOR, distance: PURPOSE_DISTANCE, size: PURPOSE_SIZE, type: 'node' };
-const purpose2 = { id: 'purpose 2 ', color: PURPOSE_COLOR, distance: PURPOSE_DISTANCE, size: PURPOSE_SIZE, type: 'node' };
-const app1 = { id: 'app 1', color: APP_COLOR, distance: APP_DISTANCE, size: APP_SIZE, type: 'node' };
-const app2 = { id: 'app 2', color: APP_COLOR, distance: APP_DISTANCE, size: APP_SIZE, type: 'node' };
-const app3 = { id: 'app 3', color: APP_COLOR, distance: APP_DISTANCE, size: APP_SIZE, type: 'node' };
+/*
+const dataset = a;
 
+let api_node = { id: dataset.id, color: API_COLOR, distance: 5, size: API_SIZE, type: 'node'};
+
+addMainNode(api_node)
+
+for(let scope of dataset.pi_scopes){
+    let scope_node =  { id: scope.id, color: SCOPE_COLOR, distance: 5, size: SCOPE_SIZE, type: 'node' };
+    addChildNode(api_node, scope_node);
+    for(let purpose of scope.purposes){
+        let purpose_node = { id: purpose.id, color: PURPOSE_COLOR, distance: 5, size: PURPOSE_SIZE, type: 'node' };
+        addChildNode(scope_node, purpose_node);
+        for(let app of purpose.apps){    
+            let app_node = { id: app.split(' ')[0], color: APP_COLOR, distance: 5, size: APP_SIZE, type: 'node' };
+            addChildNode(purpose_node, app_node);
+        }
+    }
+}
+*/
+
+/*
+console.log(dataset);
+
+const all_nodes: any[] = [];
+
+let api = { id: dataset[0].api, color: API_COLOR, distance: 5, size: API_SIZE, type: 'node'};
+//addMainNode(api);
+
+let all_scopes_: any[] = [];
+let all_purposes_: any[] = [];
+let all_apps_: any[] = [];
+/*
+for(let data of dataset){    
+    
+    let scope = { id: data.pi_scope, color: SCOPE_COLOR, distance: 5, size: SCOPE_SIZE, type: 'node' };
+    let purpose = { id: data.purpose, color: PURPOSE_COLOR, distance: 5, size: PURPOSE_SIZE, type: 'node' };
+    let app = { id: data.app_id, grant_types: data.app_grant_types, color: APP_COLOR, distance: 5, size: APP_SIZE, type: 'node' };
+    
+    all_scopes_.push(scope);
+    all_purposes_.push(purpose);
+    all_apps_.push(app);
+
+};
+
+let all_scopes = _.uniqBy(all_scopes_, 'id');
+let all_purposes = _.uniqBy(all_purposes_, 'id');
+let all_apps = _.uniqBy(all_apps_, 'id');
+
+for(let scope of all_scopes){
+    addChildNode(api, scope);
+    for(let purpose of all_purposes){
+        addChildNode(scope, purpose);
+        for(let app of all_apps){
+            addChildNode(purpose, app);
+        }
+    }
+}
+
+console.log(all_scopes);
+console.log(all_purposes);
+console.log(all_apps);
+*/
+/*
+let nodes_included: any[] = [];
+addMainNode(api);
+
+for(let i=0; i<dataset.length; i++){
+    let api, scope, purpose, app;
+    if(!nodes_included.includes(dataset[i].api)) {
+        nodes_included.push(dataset[i].api);
+        api = { id: dataset[i].api, color: API_COLOR, distance: 5, size: API_SIZE, type: 'node'};
+    }
+    if(!nodes_included.includes(dataset[i].pi_scope)){
+        nodes_included.push(dataset[i].pi_scope);
+        scope = { id: dataset[i].pi_scope, color: SCOPE_COLOR, distance: 5, size: SCOPE_SIZE, type: 'node' };
+    }
+    if(!nodes_included.includes(dataset[i].purpose)){
+        nodes_included.push(dataset[i].purpose);
+        purpose = { id: dataset[i].purpose, color: PURPOSE_COLOR, distance: 5, size: PURPOSE_SIZE, type: 'node' };
+    }
+    if(!nodes_included.includes(dataset[i].app_id)){
+        nodes_included.push(dataset[i].purpose);
+        app = { id: dataset[i].purpose, color: APP_COLOR, distance: 5, size: APP_SIZE, type: 'node' };
+    }
+    let a = [api, scope, purpose, app];
+    if(!a.includes(undefined)){
+        addChildNode(api, scope);
+        addChildNode(scope, purpose);
+        addChildNode(purpose, app);
+    };
+    if(!apps.includes(dataset[0].app_id)){
+        apps.push(dataset[0].app_id)
+    }
+}
+
+
+
+
+/*
 addMainNode(api);
 addChildNode(api, scope1);
 addChildNode(api, scope2);
