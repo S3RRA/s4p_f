@@ -23,10 +23,12 @@ export class MapitComponent implements OnInit {
 
   ngOnInit(): void {
     
-    const nodes = a.nodes;
-    const links = a.links;
+    const nodes: any[] = a.nodes;
+    const links: any[] = a.links;
 
     const svg = d3.select('#container');
+
+    console.log(links);
 
     const svg_container = document.getElementById('map-container')!;
     this.svg_width = svg_container.offsetWidth;
@@ -34,9 +36,9 @@ export class MapitComponent implements OnInit {
     const centerX = this.svg_width/2;
     const centerY = this.svg_height/2;
 
-    const simulation = forceSimulation()
-      .force('charge', forceManyBody().strength(0))
-      .force('link', forceLink((links).distance(((link: any) => link.distance) as any))
+    const simulation = forceSimulation(nodes)
+      .force('charge', forceManyBody().strength(-20))
+      .force('link', forceLink(links).id((d:any) => d.id).distance(((link: any) => link.distance) as any))
       .force('center', forceCenter(centerX, centerY));
     
     const dragInteraction: any = drag().on('drag', (event: any, node: any) => {
