@@ -92,6 +92,7 @@ export class MapitComponent implements OnInit {
       .text( (node: any) => node.id );
 
     //Legend
+    /*
     let legendIconX = 10;
     let legendIconY = 10;
     let legendTextX = 20;
@@ -135,6 +136,7 @@ export class MapitComponent implements OnInit {
         legendIconY = legentTextY += 18;
       }
     } 
+    */
     
     simulation.on('tick', () => {
       let width = this.svg_width;
@@ -192,30 +194,22 @@ export class MapitComponent implements OnInit {
     function displayChildNodes(node: any){
       const node_lines: any = document.getElementsByClassName(`line-${ node.id }`);
       for(let line of node_lines){
+
         const childNode = document.getElementById(`node-${ line.getAttribute('target')}`)!;
         const childNodeText = document.getElementById(`text-${ line.getAttribute('target')}`)!;
+
         childNode.getAttribute('visibility') === 'visible' ? childNode.setAttribute('visibility', 'hidden') : childNode.setAttribute('visibility', 'visible');
         childNodeText.getAttribute('visibility') === 'visible' ? childNodeText.setAttribute('visibility', 'hidden') : childNodeText.setAttribute('visibility', 'visible');
-        
         line.getAttribute('visibility') === 'visible' ? line.setAttribute('visibility', 'hidden') : line.setAttribute('visibility', 'visible');
 
-        let other_parents = childNode.getAttribute('parents')!.split('*');
-        other_parents = [...new Set(other_parents)];
-        let myindex = other_parents.indexOf('undefined');
-        other_parents.splice(myindex, 1);
-        myindex = other_parents.indexOf(line.source);
-        other_parents.splice(myindex, 1);
-        
-        for(let parent_id of other_parents){
-          const parent_lines = document.getElementsByClassName(`line-${ parent_id }`)!;
-          for(let i=0; i<parent_lines.length; i++){
-            const ids = childNode.getAttribute('id')!.split('-');
-            if(parent_lines[i].getAttribute('target') === ids[1] && parent_lines[i].getAttribute('visibility') === 'visible'){
-              childNode.setAttribute('visibility', 'visible');
-              childNodeText.setAttribute('visibility', 'visible')
-            } 
-          }
-        } 
+        const lines_with_childNode_as_target: any = document.querySelectorAll(`[target="${ line.getAttribute('target') }"]`);
+        for(let line_with_childNode_as_target of lines_with_childNode_as_target){
+          if(line_with_childNode_as_target.getAttribute('visibility') === 'visible'){
+            childNode.setAttribute('visibility', 'visible');
+            childNodeText.setAttribute('visibility', 'visible');
+          }       
+        }
+
       }
     }
     
